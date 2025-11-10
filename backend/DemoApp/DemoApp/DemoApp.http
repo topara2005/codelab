@@ -1,0 +1,8 @@
+@DemoApp_HostAddress = http://localhost:5041
+
+###
+
+GET {{DemoApp_HostAddress}}/process/test123?input=HelloWorld
+Accept: text/event-stream
+
+###

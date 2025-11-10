@@ -1,0 +1,20 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>net9.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <UserSecretsId>a259e87e-2df3-4275-8375-c6a0655c5727</UserSecretsId>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore.OpenApi" Version="9.0.10" />
+
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Controllers\normaly here are the controllers\" />
+    <Folder Include="Infrastructure\" />
+  </ItemGroup>
+
+</Project>

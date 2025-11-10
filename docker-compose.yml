@@ -1,0 +1,52 @@
+version: '3.8'
+
+services:
+  # Backend API Service
+  api:
+    build:
+      context: ./backend/DemoApp
+      dockerfile: Dockerfile
+    container_name: demoapp-api
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Production
+      - ASPNETCORE_URLS=http://+:8080
+    networks:
+      - app-network
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8080/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s
+
+  # Frontend UI Service
+  ui:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    container_name: demoapp-ui
+    networks:
+      - app-network
+    restart: unless-stopped
+    depends_on:
+      - api
+
+  # Nginx Reverse Proxy with Basic Auth
+  nginx:
+    build:
+      context: ./nginx
+      dockerfile: Dockerfile
+    container_name: demoapp-nginx
+    ports:
+      - "8000:80"
+    networks:
+      - app-network
+    restart: unless-stopped
+    depends_on:
+      - api
+      - ui
+
+networks:
+  app-network:
+    driver: bridge
